@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebAppPPA.Models.Services.Application;
@@ -40,12 +41,14 @@ namespace WebAppPPA
                 //boh????services.AddTransient<IDatabaseAccessor, SqliteDatabaseAccessor>();
 
                 services.AddScoped<WebAppPPADbContext>();
-                services.AddDbContext<WebAppPPADbContext>();
-                /*services.AddDbContextPool<WebAppPPADbContext>(optionsBuilder => {
+                services.AddDbContext<WebAppPPADbContext>(options => options.UseSqlite("Data Source=Dati/personeDB.db"));
+                
+                /*
+                services.AddDbContextPool<WebAppPPADbContext>(optionsBuilder => {
                 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlite("Data Source=Dati/persone.db");
-                });*/
-            
+                });
+                */
                 
             
         }
