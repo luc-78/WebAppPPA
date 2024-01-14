@@ -21,7 +21,7 @@ namespace WebAppPPA.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["Title"] = "Elenco delle persone";
-            List<PersonaViewModel> persone = await EfCorePersonaService.GetPersoneAsync();
+            List<PersonaViewModel> persone = await personaService.GetPersoneAsync();
             return View(persone);
         }
 

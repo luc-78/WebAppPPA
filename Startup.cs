@@ -28,27 +28,26 @@ namespace WebAppPPA
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+               
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
                 // services.AddTransient<ICourseService, AdoNetCourseService>();
                 services.AddTransient<IPersonaService, EfCorePersonaService>();
                 //boh????services.AddTransient<IDatabaseAccessor, SqliteDatabaseAccessor>();
 
                 services.AddScoped<WebAppPPADbContext>();
                 services.AddDbContext<WebAppPPADbContext>();
-             /*   services.AddDbContextPool<WebAppPPADbContext>(optionsBuilder => {
+                /*services.AddDbContextPool<WebAppPPADbContext>(optionsBuilder => {
                 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlite("Data Source=Dati/persone.db");
+                });*/
+            
                 
-            });
-            */
-                
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
