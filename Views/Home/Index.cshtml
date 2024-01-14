@@ -1,23 +1,47 @@
 ﻿@model List<PersonaViewModel>
 <h1>@ViewData["Title"]</h1>
 
+<div class="row persona">
+
+    <div class="col-md-2">
+        <h4>Nome</h4>
+    </div>
+    <div class="col-md-2">
+        <h4>Cognome</h4>
+    </div>
+    <div class="col-md-2">
+        <h4>Data di nascita</h4>
+    </div>
+    <div class="col-md-2">
+        <h4>Telefono</h4>
+    </div>
+    <div class="col-md-2">
+        <h4>Email</h4>
+    </div>
+ <!--   <div class="col-md-2 d-flex align-items-center">
+      <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id=" at course.Id ">Dettaglio</a>
+    </div>
+ -->   
+</div>
+
 @foreach(PersonaViewModel persona in Model)
 {
 <hr>
 <div class="row persona">
-    <div class="col-md-3">
+
+    <div class="col-md-2">
         <p>@persona.Nome</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <p>@persona.Cognome</p>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
         <p>@persona.Data_di_nascita</p>
     </div>
     <div class="col-md-2">
         <p>@persona.Telefono</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <p>@persona.Email</p>
     </div>
  <!--   <div class="col-md-2 d-flex align-items-center">
