@@ -43,9 +43,9 @@ namespace WebAppPPA.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create(PersonaCreateInputModel inputModel)
+        public async Task<IActionResult> Create(PersonaCreateInputModel inputModel)
         {
-            
+            int personaID = await personaService.CreaPersonaAsync(inputModel);
             return RedirectToAction(nameof(Index));
         }
 

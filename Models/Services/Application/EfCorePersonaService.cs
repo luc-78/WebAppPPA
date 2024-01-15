@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAppPPA.Models.Entities;
+using WebAppPPA.Models.InputModels;
 using WebAppPPA.Models.Services.Infrastructure;
 using WebAppPPA.Models.ViewModels;
 
@@ -64,6 +65,16 @@ namespace WebAppPPA.Models.Services.Application
             */
         }
 
-       
+        public async Task<int> CreaPersonaAsync(PersonaCreateInputModel inputModel)
+        {
+            var persona = new Persona(inputModel.Nome,
+                                        inputModel.Cognome,
+                                        inputModel.Email,
+                                        inputModel.Indirizzo,
+                                        inputModel.Telefono);
+            dbContext.Add(persona);
+            await dbContext.SaveChangesAsync();
+            return persona.PersonaID;
+        }
     }
 }

@@ -36,13 +36,13 @@ namespace WebAppPPA
             });
 
              services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-                // services.AddTransient<ICourseService, AdoNetCourseService>();
-                services.AddTransient<IPersonaService, EfCorePersonaService>();
-                //boh????services.AddTransient<IDatabaseAccessor, SqliteDatabaseAccessor>();
-
+               services.AddTransient<IPersonaService, EfCorePersonaService>();
+              
                 services.AddScoped<WebAppPPADbContext>();
+                string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
                 services.AddDbContext<WebAppPPADbContext>(options => options.UseSqlite("Data Source=Dati/personeDB.db"));
-                
+                //"Data Source=Dati/personeDB.db"
+
                 /*
                 services.AddDbContextPool<WebAppPPADbContext>(optionsBuilder => {
                 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
