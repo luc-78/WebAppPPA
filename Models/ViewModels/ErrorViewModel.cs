@@ -1,6 +1,6 @@
 using System;
 
-namespace WebAppPPA.Models
+namespace WebAppPPA.Models.ViewModels
 {
     public class ErrorViewModel
     {

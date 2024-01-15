@@ -40,8 +40,8 @@ namespace WebAppPPA
               
                 services.AddScoped<WebAppPPADbContext>();
                 string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
-                services.AddDbContext<WebAppPPADbContext>(options => options.UseSqlite("Data Source=Dati/personeDB.db"));
-                //"Data Source=Dati/personeDB.db"
+                services.AddDbContext<WebAppPPADbContext>(options => options.UseSqlite(connectionString));
+                
 
                 /*
                 services.AddDbContextPool<WebAppPPADbContext>(optionsBuilder => {
