@@ -1,0 +1,47 @@
+@model PersonaCreateInputModel
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+<h1>@ViewData["Title"]</h1>
+    <form method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" asp-for="Nome" required>
+
+        <label for="cognome">Cognome:</label>
+        <input type="text" asp-for="Cognome" required>
+
+        <label for="data_nascita">Data di Nascita:</label>
+        <input type="date" asp-for="Data_di_nascita">
+
+        <label for="indirizzo">Indirizzo:</label>
+        <input type="text" asp-for="Indirizzo">
+
+        <label for="email">Email:</label>
+        <input type="email" asp-for="Email" required>
+
+        <button type="submit">Invia</button>
+    </form>

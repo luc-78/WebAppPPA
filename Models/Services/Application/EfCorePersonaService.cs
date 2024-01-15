@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WebAppPPA.Models.Entities;
 using WebAppPPA.Models.Services.Infrastructure;
 using WebAppPPA.Models.ViewModels;
 
@@ -42,5 +43,27 @@ namespace WebAppPPA.Models.Services.Application
 
             return persone;
         }
+
+        public async Task<PersonaViewModel> GetPersonaAsync(int id)
+        {
+            IQueryable<PersonaViewModel> queryLinq = dbContext.Persone
+                .AsNoTracking()
+                .Where(persona => persona.PersonaID==id)
+                .Select(persona => PersonaViewModel.FromEntity(persona));
+            
+            PersonaViewModel person = await queryLinq.FirstAsync();
+            return person;
+            /*
+            IQueryable<PersonaViewModel> queryLinq = dbContext.Persone
+                .AsNoTracking()
+                .Select(persona => PersonaViewModel.FromEntity(persona)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
+
+            List<PersonaViewModel> persone = await queryLinq.ToListAsync(); //La query al database viene inviata qui, quando manifestiamo l'intenzione di voler leggere i risultati
+
+            return persone;
+            */
+        }
+
+       
     }
 }

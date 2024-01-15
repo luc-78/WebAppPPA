@@ -1,8 +1,6 @@
 using System;
 using System.Data;
 using WebAppPPA.Models.Entities;
-//using MyCourse.Models.Enums;
-//using WebAppPPA.Models.ValueObjects;
 
 namespace WebAppPPA.Models.ViewModels
 {
@@ -15,11 +13,11 @@ namespace WebAppPPA.Models.ViewModels
         public int Telefono { get; set; }
         public string Email { get; set; }
 
-
+/*
         public static PersonaViewModel FromDataRow(DataRow courseRow)
         {
             var personaViewModel = new PersonaViewModel {
-               /* Title = Convert.ToString(courseRow["Title"]),
+                Title = Convert.ToString(courseRow["Title"]),
                 ImagePath = Convert.ToString(courseRow["ImagePath"]),
                 Author = Convert.ToString(courseRow["Author"]),
                 Rating = Convert.ToDouble(courseRow["Rating"]),
@@ -31,11 +29,11 @@ namespace WebAppPPA.Models.ViewModels
                     Enum.Parse<Currency>(Convert.ToString(courseRow["CurrentPrice_Currency"])),
                     Convert.ToDecimal(courseRow["CurrentPrice_Amount"])
                 ),
-                Id = Convert.ToInt32(courseRow["Id"])*/
+                Id = Convert.ToInt32(courseRow["Id"])
             };
             return personaViewModel;
         }
-
+*/
         public static PersonaViewModel FromEntity(Persona persona)
         {
             return new PersonaViewModel {
@@ -47,5 +45,6 @@ namespace WebAppPPA.Models.ViewModels
                 Email=persona.Email
             };
         }
+        
     }
 }

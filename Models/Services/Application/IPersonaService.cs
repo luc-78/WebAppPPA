@@ -6,8 +6,9 @@ namespace WebAppPPA.Models.Services.Application
 {
     public interface IPersonaService
     {
-         Task<List<PersonaViewModel>> GetPersoneAsync();
-         
-         //Task<CourseDetailViewModel> GetPersonaAsync(int id);
+        Task<List<PersonaViewModel>> GetPersoneAsync();
+        Task<PersonaViewModel> GetPersonaAsync(int id);
+
+        //Task<PersonaDetailViewModel> CreateCourseAsync(PersonaCreateInputModel inputModel);
     }
 }
