@@ -1,4 +1,4 @@
-@model PersonaCreateInputModel
+@model PersonaModificaInputModel
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,10 +18,12 @@
         }
 
        
-    </style>
+</style>
 
 <h1>@ViewData["Title"]</h1>
     <form method="post">
+        <input type="hidden" asp-for="PersonaID">
+        
         <label for="nome">Nome:</label>
         <input type="text" asp-for="Nome" required>
 

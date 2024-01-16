@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using WebAppPPA.Models.Entities;
 using WebAppPPA.Models.InputModels;
@@ -18,23 +19,7 @@ namespace WebAppPPA.Models.Services.Application
             this.dbContext = dbContext;
         }
 
-  /*      public async Task<CourseDetailViewModel> GetCourseAsync(int id)
-        {
-            IQueryable<CourseDetailViewModel> queryLinq = dbContext.Courses
-                .AsNoTracking()
-                .Include(course => course.Lessons)
-                .Where(course => course.Id == id)
-                .Select(course => CourseDetailViewModel.FromEntity(course)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
-            
-            CourseDetailViewModel viewModel = await queryLinq.SingleAsync();
-                                                           //.FirstOrDefaultAsync(); //Restituisce null se l'elenco è vuoto e non solleva mai un'eccezione
-                                                           //.SingleOrDefaultAsync(); //Tollera il fatto che l'elenco sia vuoto e in quel caso restituisce null, oppure se l'elenco contiene più di 1 elemento, solleva un'eccezione
-                                                           //.FirstAsync(); //Restituisce il primo elemento, ma se l'elenco è vuoto solleva un'eccezione
-                
-            return viewModel;
-        }
-*/
-        public async Task<List<PersonaViewModel>> GetPersoneAsync()
+          public async Task<List<PersonaViewModel>> GetPersoneAsync()
         {
             IQueryable<PersonaViewModel> queryLinq = dbContext.Persone
                 .AsNoTracking()
@@ -54,15 +39,8 @@ namespace WebAppPPA.Models.Services.Application
             
             PersonaViewModel person = await queryLinq.FirstAsync();
             return person;
-            /*
-            IQueryable<PersonaViewModel> queryLinq = dbContext.Persone
-                .AsNoTracking()
-                .Select(persona => PersonaViewModel.FromEntity(persona)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
-
-            List<PersonaViewModel> persone = await queryLinq.ToListAsync(); //La query al database viene inviata qui, quando manifestiamo l'intenzione di voler leggere i risultati
-
-            return persone;
-            */
+           
+           
         }
 
         public async Task<int> CreaPersonaAsync(PersonaCreateInputModel inputModel)
@@ -70,11 +48,61 @@ namespace WebAppPPA.Models.Services.Application
             var persona = new Persona(inputModel.Nome,
                                         inputModel.Cognome,
                                         inputModel.Email,
-                                        inputModel.Indirizzo,
+                                        inputModel.Data_di_nascita,
                                         inputModel.Telefono);
             dbContext.Add(persona);
             await dbContext.SaveChangesAsync();
             return persona.PersonaID;
+        }
+
+        public async Task<PersonaModificaInputModel> GetPersonaPerModificaAsync(int id)
+        {
+            IQueryable<PersonaModificaInputModel> queryLinq = dbContext.Persone
+                .AsNoTracking()
+                .Where(persona => persona.PersonaID == id)
+                .Select(persona => PersonaModificaInputModel.FromEntity(persona)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
+
+            PersonaModificaInputModel viewModel = await queryLinq.FirstOrDefaultAsync();
+
+            /*
+            if (viewModel == null)
+            {
+                logger.LogWarning("Course {id} not found", id);
+                throw new CourseNotFoundException(id);
+            }
+            */
+
+            return viewModel;
+        }
+
+        public async Task<bool> ModificaPersonaAsync(PersonaModificaInputModel inputModel)
+        {
+            Persona persona = await dbContext.Persone.FindAsync(inputModel.PersonaID);
+            
+            if (persona == null)
+            {
+                //throw new CourseNotFoundException(inputModel.Id);
+            }
+
+            persona.Nome=inputModel.Nome;
+            persona.Cognome=inputModel.Cognome;
+            persona.Data_di_nascita=inputModel.Data_di_nascita;
+            persona.Email=inputModel.Email;
+            persona.Telefono=inputModel.Telefono;
+            
+            //dbContext.Update(course);
+
+            try
+            {
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateException exc) when ((exc.InnerException as SqliteException)?.SqliteErrorCode == 19)
+            {
+                //throw new CourseTitleUnavailableException(inputModel.Title, exc);
+                return false;
+            }
+  
         }
     }
 }

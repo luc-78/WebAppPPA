@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAppPPA.Models.InputModels;
@@ -10,7 +11,8 @@ namespace WebAppPPA.Models.Services.Application
         Task<List<PersonaViewModel>> GetPersoneAsync();
         Task<PersonaViewModel> GetPersonaAsync(int id);
         Task<int> CreaPersonaAsync(PersonaCreateInputModel inputModel);
+        Task<PersonaModificaInputModel> GetPersonaPerModificaAsync(int id);
+        Task<Boolean> ModificaPersonaAsync(PersonaModificaInputModel inputModel);
 
-        //Task<PersonaDetailViewModel> CreateCourseAsync(PersonaCreateInputModel inputModel);
     }
 }

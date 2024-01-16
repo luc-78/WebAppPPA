@@ -26,11 +26,29 @@ namespace WebAppPPA.Controllers
             return View(persone);
         }
 
-        public async Task<IActionResult> Dettagli(int id)
+         [HttpGet]
+        public async Task<IActionResult>Modifica(int id)
         {
-            PersonaViewModel persona = await personaService.GetPersonaAsync(id);
-            ViewData["Title"] = "ID = " + persona.PersonaID;
-            return View(persona);
+            PersonaModificaInputModel InputModels = await personaService.GetPersonaPerModificaAsync(id);
+            ViewData["Title"] = "Modifica Dati";
+            return View(InputModels);
+         
+        }
+
+         [HttpPost]
+        public async Task<IActionResult>Modifica(PersonaModificaInputModel inputModel)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                bool risultato = await personaService.ModificaPersonaAsync(inputModel); 
+                TempData["ConfirmationMessage"] = "I dati sono stati salvati con successo";
+                return RedirectToAction(nameof(Index));
+              
+            }
+
+            ViewData["Title"] = "Modifica dati";
+            return View(inputModel);
          
         }
 

@@ -21,7 +21,7 @@ namespace WebAppPPA.Models.Entities
             Cognome = cognome;
             Email = email;
             Data_di_nascita=datadinascita;
-            Telefono = Convert.ToInt32(tel);
+            Telefono = tel;
         }
         public Persona(string nome, string cognome, string email)
         {
@@ -39,12 +39,12 @@ namespace WebAppPPA.Models.Entities
             Email = email;
         }
 
-        public int PersonaID { get; private set; }
-        public string Nome { get; private set; }
-        public string Cognome { get; private set; }
-        public string Data_di_nascita { get; private set; }
-        public int Telefono { get; private set; }
-        public string Email { get; private set; }
+        public int PersonaID { get; set; }
+        public string Nome { get; set; }
+        public string Cognome { get; set; }
+        public string Data_di_nascita { get; set; }
+        public string Telefono { get; set; }
+        public string Email { get; set; }
 
 
     }
