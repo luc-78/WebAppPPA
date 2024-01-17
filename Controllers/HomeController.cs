@@ -30,7 +30,7 @@ namespace WebAppPPA.Controllers
         public async Task<IActionResult>Modifica(int id)
         {
             PersonaModificaInputModel InputModels = await personaService.GetPersonaPerModificaAsync(id);
-            ViewData["Title"] = "Modifica Dati";
+            ViewData["Title"] = "Modifica Dati: " + InputModels.Nome + " " + InputModels.Cognome;
             return View(InputModels);
          
         }
