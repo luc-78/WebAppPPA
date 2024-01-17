@@ -14,7 +14,6 @@ namespace WebAppPPA.Models.Services.Infrastructure
         }
 
         public virtual DbSet<Persona> Persone { get; set; }
-       // public virtual DbSet<Lesson> Lessons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
