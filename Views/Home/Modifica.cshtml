@@ -40,5 +40,6 @@
         <input type="telefono" asp-for="Telefono" required>
 
         <button class="btn btn-outline-primary" type="submit">Invia</button>
+        <button class="btn btn-danger btn-lg ml-3" type="submit" asp-action="Delete" asp-route-id="@Model.PersonaID">🗑<i class="fas fa-trash-alt"></i></button>
 
     </form>

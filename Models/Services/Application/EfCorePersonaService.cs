@@ -104,5 +104,16 @@ namespace WebAppPPA.Models.Services.Application
             }
   
         }
+
+        public async Task DeletePersonaAsync(PersonaDeleteInputModel inputModel)
+        {
+            Persona persona = await dbContext.Persone.FindAsync(inputModel.PersonaID);
+            if (persona == null)
+            {
+                //throw new 
+            }
+            dbContext.Remove(persona);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

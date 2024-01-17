@@ -13,6 +13,6 @@ namespace WebAppPPA.Models.Services.Application
         Task<int> CreaPersonaAsync(PersonaCreateInputModel inputModel);
         Task<PersonaModificaInputModel> GetPersonaPerModificaAsync(int id);
         Task<Boolean> ModificaPersonaAsync(PersonaModificaInputModel inputModel);
-
+        Task DeletePersonaAsync(PersonaDeleteInputModel inputModel);
     }
 }

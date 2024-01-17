@@ -19,7 +19,6 @@ namespace WebAppPPA.Models.InputModels
         public string Cognome { get;  set; }
         public string Data_di_nascita { get;  set; }
         public string Telefono { get;  set; }
-        public string Indirizzo { get;  set; }
         public string Email { get;  set; }
     }
 }

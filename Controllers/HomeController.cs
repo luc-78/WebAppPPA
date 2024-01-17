@@ -67,6 +67,14 @@ namespace WebAppPPA.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(PersonaDeleteInputModel inputModel)
+        {
+            await personaService.DeletePersonaAsync(inputModel);
+            TempData["ConfirmationMessage"] = "La persona è stata eliminata";
+            return RedirectToAction(nameof(Index));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
