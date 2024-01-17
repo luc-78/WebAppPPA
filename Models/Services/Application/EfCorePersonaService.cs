@@ -64,14 +64,6 @@ namespace WebAppPPA.Models.Services.Application
 
             PersonaModificaInputModel viewModel = await queryLinq.FirstOrDefaultAsync();
 
-            /*
-            if (viewModel == null)
-            {
-                logger.LogWarning("Course {id} not found", id);
-                throw new CourseNotFoundException(id);
-            }
-            */
-
             return viewModel;
         }
 
@@ -99,7 +91,7 @@ namespace WebAppPPA.Models.Services.Application
             }
             catch (DbUpdateException exc) when ((exc.InnerException as SqliteException)?.SqliteErrorCode == 19)
             {
-                //throw new CourseTitleUnavailableException(inputModel.Title, exc);
+                //throw new ;
                 return false;
             }
   

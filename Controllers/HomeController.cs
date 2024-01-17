@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebAppPPA.Models;
 using WebAppPPA.Models.InputModels;
 using WebAppPPA.Models.Services.Application;
 using WebAppPPA.Models.ViewModels;
@@ -71,7 +68,7 @@ namespace WebAppPPA.Controllers
         public async Task<IActionResult> Delete(PersonaDeleteInputModel inputModel)
         {
             await personaService.DeletePersonaAsync(inputModel);
-            TempData["ConfirmationMessage"] = "La persona è stata eliminata";
+            //TempData["ConfirmationMessage"] = "La persona è stata eliminata";
             return RedirectToAction(nameof(Index));
         }
 
