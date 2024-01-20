@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +53,7 @@ namespace WebAppPPA.Models.Services.Application
                                         inputModel.Telefono);
             dbContext.Add(persona);
             await dbContext.SaveChangesAsync();
+            await InviaMailBenvenutoAsync(persona);
             return persona.PersonaID;
         }
 
@@ -106,6 +108,26 @@ namespace WebAppPPA.Models.Services.Application
             }
             dbContext.Remove(persona);
             await dbContext.SaveChangesAsync();
+        }
+
+        public Task InviaMailBenvenutoAsync(Persona persona)
+        {
+            var emailSender= new EmailSender();
+
+            // Invio la domanda
+            try
+            {
+                emailSender.SendEmail(persona.Email,
+                                        $"Benvenuto in ProgettoPA, {persona.Nome} {persona.Cognome}",
+                                        "Benvenuto",
+                                        "Benvenuto in ProgettoPA!");
+            }
+            catch (Exception e)
+            {
+                //throw new SendException();
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
