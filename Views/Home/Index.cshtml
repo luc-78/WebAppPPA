@@ -1,4 +1,6 @@
 ﻿@model List<PersonaViewModel>
+@using WebAppPPA.Models.Services
+
 <h1>@ViewData["Title"] <a class="btn btn-outline-primary btn-sm" asp-action="Create"><i class="fa fa-plus"></i> Crea nuova</a></h1>
 
 <div class="row persona">
@@ -33,7 +35,7 @@
         <p>@persona.Cognome</p>
     </div>
     <div class="col-md-2">
-        <p>@persona.Data_di_nascita</p>
+        <p>@FormatData.CambiaFormatoData(persona.Data_di_nascita)</p>
     </div>
     <div class="col-md-2">
         <p>@persona.Telefono</p>
