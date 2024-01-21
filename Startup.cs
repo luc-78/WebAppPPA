@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppPPA.Models.Services;
 using WebAppPPA.Models.Services.Application;
 using WebAppPPA.Models.Services.Infrastructure;
 
@@ -22,7 +23,7 @@ namespace WebAppPPA
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        static public IConfiguration Configuration { set; get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,8 +36,8 @@ namespace WebAppPPA
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-               services.AddTransient<IPersonaService, EfCorePersonaService>();
+                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                services.AddTransient<IPersonaService, EfCorePersonaService>();
               
                 services.AddScoped<WebAppPPADbContext>();
                 string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
@@ -50,7 +51,6 @@ namespace WebAppPPA
                 });
                 */
                 
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

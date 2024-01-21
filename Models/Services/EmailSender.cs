@@ -1,31 +1,28 @@
 using System;
 using System.Net.Mail;
 using System.Net;
-using WebAppPPA;
+using Microsoft.Extensions.Configuration;
 
 namespace WebAppPPA.Models.Services{
 
 public class EmailSender
 {
-    
+    private readonly IConfiguration _configuration;
+
     public EmailSender()
-        {
-            
-        }
+    {
+        _configuration = Startup.Configuration;
+    }
 
 
     public void SendEmail(string receiver, string nomeReceiver, string mailSubject, string mailBody)
     {
-       /*
-        var senderEmail = Configuration.GetSection("Email").GetValue<string>("emailSender");
-        var senderNome = Configuration.GetSection("Email").GetValue<string>("nomeSender");
-        var host = Configuration.GetSection("Email").GetValue<string>("host");
-        var fromPassword = Configuration.GetSection("Email").GetValue<string>("fromPassword");
-        */
-        var senderEmail = "lucabrighi@msn.com";
-        var senderNome = "Staff ProgettoPA";
-        var host = "outlook.office365.com"; // "smtp.domain.com",
-        var fromPassword = "Agrippa2020";
+       
+        var senderEmail = _configuration.GetSection("Email").GetValue<string>("emailSender");
+        var senderNome = _configuration.GetSection("Email").GetValue<string>("nomeSender");
+        var host = _configuration.GetSection("Email").GetValue<string>("host");
+        var fromPassword = _configuration.GetSection("Email").GetValue<string>("fromPassword");
+        var port = _configuration.GetSection("Email").GetValue<int>("port");
 
         var fromAddress = new MailAddress(senderEmail, senderNome); // Email Sender
         var toAddress = new MailAddress(receiver, nomeReceiver); // Email Receiver
@@ -35,7 +32,7 @@ public class EmailSender
         {
             // Fill the following lines with your SMTP server info
             Host = host, 
-            Port = 587,
+            Port = port,  //587,
             EnableSsl = true, // Set to true if the server requires SSL.
             DeliveryMethod = SmtpDeliveryMethod.Network,
             UseDefaultCredentials = false,
