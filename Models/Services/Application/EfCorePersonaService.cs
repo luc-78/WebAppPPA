@@ -20,9 +20,15 @@ namespace WebAppPPA.Models.Services.Application
             this.dbContext = dbContext;
         }
 
-          public async Task<List<PersonaViewModel>> GetPersoneAsync()
+          public async Task<List<PersonaViewModel>> GetPersoneAsync(int page)
         {
+            page=Math.Max(1,page);
+            int limit=10;
+            int offset=(page -1)*limit;
+
             IQueryable<PersonaViewModel> queryLinq = dbContext.Persone
+                .Skip(offset)
+                .Take(limit)
                 .AsNoTracking()
                 .Select(persona => PersonaViewModel.FromEntity(persona)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
 

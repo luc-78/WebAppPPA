@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using WebAppPPA.Models.InputModels;
 using WebAppPPA.Models.Services.Application;
 using WebAppPPA.Models.ViewModels;
@@ -16,10 +17,10 @@ namespace WebAppPPA.Controllers
             this.personaService = personaService;
         }
         
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
             ViewData["Title"] = "Elenco delle persone";
-            List<PersonaViewModel> persone = await personaService.GetPersoneAsync();
+            List<PersonaViewModel> persone = await personaService.GetPersoneAsync(page);
             return View(persone);
         }
 
