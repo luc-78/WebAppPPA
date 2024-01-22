@@ -58,7 +58,7 @@ public class EmailSender
             // Send email message
             smtpClient.Send(message);
         }
-        catch (Exception ex)
+        catch
         {
             
         }

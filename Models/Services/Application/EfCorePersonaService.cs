@@ -23,7 +23,7 @@ namespace WebAppPPA.Models.Services.Application
           public async Task<List<PersonaViewModel>> GetPersoneAsync(int page)
         {
             page=Math.Max(1,page);
-            int limit=10;
+            int limit=7;
             int offset=(page -1)*limit;
 
             IQueryable<PersonaViewModel> queryLinq = dbContext.Persone
@@ -124,11 +124,11 @@ namespace WebAppPPA.Models.Services.Application
             try
             {
                 emailSender.SendEmail(persona.Email,
-                                        $"Benvenuto in ProgettoPA, {persona.Nome} {persona.Cognome}",
-                                        "Benvenuto",
+                                        $"{persona.Nome} {persona.Cognome}",
+                                        $"Benvenuto {persona.Nome} {persona.Cognome}",
                                         "Benvenuto in ProgettoPA!");
             }
-            catch (Exception e)
+            catch 
             {
                 //throw new SendException();
             }
