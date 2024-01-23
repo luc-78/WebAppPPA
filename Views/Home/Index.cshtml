@@ -20,7 +20,9 @@
     <div class="col-md-2">
         <h4>Email</h4>
     </div>
- 
+    <div class="col-md-1">
+        <h4>Numero preferito</h4>
+    </div>
 </div>
 
 @foreach(PersonaViewModel persona in Model)
@@ -43,7 +45,10 @@
     <div class="col-md-2">
         <p>@persona.Email</p>
     </div>
-    <div class="col-md-2 d-flex align-items-center">
+    <div class="col-md-1">
+        <p>@persona.Numero_preferito</p>
+    </div>
+    <div class="col-md-1 d-flex align-items-center">
       <a class="btn btn-outline-primary" asp-action="Modifica" asp-route-id=@persona.PersonaID>Modifica</a>
     </div>
     

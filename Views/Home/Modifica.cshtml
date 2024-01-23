@@ -37,6 +37,9 @@
         <label for="telefono">Telefono:</label>
         <input type="telefono" asp-for="Telefono" required>
 
+        <label for="num_preferito">Numero preferito:</label>
+        <input type="number" min="0" max="100" asp-for="Numero_preferito" required>
+
         <button class="btn btn-outline-primary" type="submit">Invia</button>
         <button class="btn btn-danger btn-lg ml-3" type="button" data-toggle="modal" data-target="#delete-modal">🗑<i class="fas fa-trash-alt"></i></button>
 

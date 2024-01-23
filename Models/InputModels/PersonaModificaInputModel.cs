@@ -26,6 +26,8 @@ namespace WebAppPPA.Models.InputModels
          [Required()]
          public string Email { get; set; }
 
+        [Required()]
+        public int Numero_preferito  { get;  set; }
 
         public static PersonaModificaInputModel FromEntity(Persona persona)
         {
@@ -35,7 +37,8 @@ namespace WebAppPPA.Models.InputModels
                 Cognome=persona.Cognome,
                 Data_di_nascita=persona.Data_di_nascita,
                 Telefono=persona.Telefono,
-                Email=persona.Email
+                Email=persona.Email,
+                Numero_preferito=persona.Numero_preferito
             };
         }
 

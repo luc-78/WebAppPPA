@@ -20,5 +20,6 @@ namespace WebAppPPA.Models.InputModels
         public string Data_di_nascita { get;  set; }
         public string Telefono { get;  set; }
         public string Email { get;  set; }
+        public int Numero_preferito  { get;  set; }
     }
 }

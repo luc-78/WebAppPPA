@@ -56,7 +56,8 @@ namespace WebAppPPA.Models.Services.Application
                                         inputModel.Cognome,
                                         inputModel.Email,
                                         inputModel.Data_di_nascita,
-                                        inputModel.Telefono);
+                                        inputModel.Telefono,
+                                        inputModel.Numero_preferito);
             dbContext.Add(persona);
             await dbContext.SaveChangesAsync();
             await InviaMailBenvenutoAsync(persona);
@@ -89,6 +90,7 @@ namespace WebAppPPA.Models.Services.Application
             persona.Data_di_nascita=inputModel.Data_di_nascita;
             persona.Email=inputModel.Email;
             persona.Telefono=inputModel.Telefono;
+            persona.Numero_preferito=inputModel.Numero_preferito;
             
             //dbContext.Update(course);
 

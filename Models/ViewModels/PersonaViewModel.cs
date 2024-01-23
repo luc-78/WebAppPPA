@@ -12,7 +12,7 @@ namespace WebAppPPA.Models.ViewModels
         public string Data_di_nascita { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
-
+        public int Numero_preferito  { get;  set; }
 
         public static PersonaViewModel FromEntity(Persona persona)
         {
@@ -22,7 +22,8 @@ namespace WebAppPPA.Models.ViewModels
                 Cognome=persona.Cognome,
                 Data_di_nascita=persona.Data_di_nascita,
                 Telefono=persona.Telefono,
-                Email=persona.Email
+                Email=persona.Email,
+                Numero_preferito=persona.Numero_preferito
             };
         }
         
