@@ -1,0 +1,38 @@
+@model GrafViewModel
+
+<h1>@ViewData["Title"]
+<div>
+  <canvas id="myChart"  chart.canvas.parentNode.style.height = '128px';
+chart.canvas.parentNode.style.width = '128px';></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ["0-9","10-19","20-29","30-39","40-49","50-59","60-69","70-79","80-89","90-99"],
+    datasets: [{
+      label: '% di voti',
+      data: [@string.Join(",", Model.NumeriVotati)],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    
+    legend: {
+      display: true, // Imposta su false se vuoi nascondere la legenda
+      position: 'top', // Puoi scegliere tra 'top', 'bottom', 'left', 'right'
+      labels: {
+        fontColor: 'black', // Colore del testo della legenda
+        fontSize: 12 // Dimensione del testo della legenda
+      }
+    }
+  }
+});
+
+</script>
+ 

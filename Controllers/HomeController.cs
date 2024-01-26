@@ -17,10 +17,16 @@ namespace WebAppPPA.Controllers
             this.personaService = personaService;
         }
         
+        private static string ViewBagToastScript = "";
+
         public async Task<IActionResult> Index(int page=1)
         {
             ViewData["Title"] = "Elenco delle persone";
             List<PersonaViewModel> persone = await personaService.GetPersoneAsync(page);
+            if(ViewBagToastScript != "")
+                {
+                    ViewBag.ToastScript = "mostraToastConferma();";
+                }
             return View(persone);
         }
 
@@ -40,7 +46,8 @@ namespace WebAppPPA.Controllers
             {
                 
                 bool risultato = await personaService.ModificaPersonaAsync(inputModel); 
-                TempData["ConfirmationMessage"] = "I dati sono stati salvati con successo";
+                //ViewBag.ToastScript = "mostraToastConferma();";//TempData["ConfirmationMessage"] = "I dati sono stati salvati con successo";
+                ViewBagToastScript="modifiche effettuate";
                 return RedirectToAction(nameof(Index));
               
             }
@@ -62,6 +69,8 @@ namespace WebAppPPA.Controllers
         public async Task<IActionResult> Create(PersonaCreateInputModel inputModel)
         {
             int personaID = await personaService.CreaPersonaAsync(inputModel);
+            //ViewBag.ToastScript = "mostraToastConferma();"
+            ViewBagToastScript="persona aggiunta";
             return RedirectToAction(nameof(Index));
         }
 
@@ -69,7 +78,7 @@ namespace WebAppPPA.Controllers
         public async Task<IActionResult> Delete(PersonaDeleteInputModel inputModel)
         {
             await personaService.DeletePersonaAsync(inputModel);
-            //TempData["ConfirmationMessage"] = "La persona è stata eliminata";
+            ViewBagToastScript="La persona è stata eliminata";
             return RedirectToAction(nameof(Index));
         }
 

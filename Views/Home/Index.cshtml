@@ -1,5 +1,4 @@
 ﻿@model List<PersonaViewModel>
-@using WebAppPPA.Models.Services
 
 <h1>@ViewData["Title"] <a class="btn btn-outline-primary btn-sm" asp-action="Create"><i class="fa fa-plus"></i> Crea nuova</a></h1>
 
@@ -75,3 +74,10 @@
         </li>
     </ul>
 </nav>
+
+@if (!string.IsNullOrEmpty(ViewBag.ToastScript))
+{
+    <script>
+        @Html.Raw(ViewBag.ToastScript)
+    </script>
+}
