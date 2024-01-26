@@ -1,4 +1,4 @@
-﻿@model List<PersonaViewModel>
+﻿@model PersonaListViewModel
 
 <h1>@ViewData["Title"] <a class="btn btn-outline-primary btn-sm" asp-action="Create"><i class="fa fa-plus"></i> Crea nuova</a></h1>
 
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-@foreach(PersonaViewModel persona in Model)
+@foreach(PersonaViewModel persona in Model.Persone.Results)
 {
 <hr>
 <div class="row persona">
@@ -55,25 +55,33 @@
 }
 
 
-<nav aria-label="Page navigation">
+@{
+    int totalPages = (int) Math.Ceiling(Model.Persone.TotalCount / (decimal) Model.Input.Limit);
+    int currentPage = Model.Input.Page;
+
+}
+<nav aria-label="Paginazione">
     <ul class="pagination d-flex justify-content-center mt-3">
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" asp-route-page="1"> 1 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" asp-route-page="2"> 2 </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" asp-route-page="3"> 3 </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" asp-route-page="4"> 4 </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" asp-route-page="5"> 5 </a>
-        </li>
+        
+        @for(int p = Math.Max(1, currentPage-4); p <= Math.Min(totalPages, currentPage+4); p++)
+        {
+            if (p == currentPage)
+            {
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" asp-route-page="@p">@p <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-page="@p">@p</a>
+                </li>
+            }
+        }
+        
     </ul>
 </nav>
+
 
 
 @if (!string.IsNullOrEmpty(ViewBag.ToastScript))

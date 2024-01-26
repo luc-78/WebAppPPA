@@ -8,6 +8,7 @@ using WebAppPPA.Models.Entities;
 using WebAppPPA.Models.InputModels;
 using WebAppPPA.Models.Services.Infrastructure;
 using WebAppPPA.Models.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace WebAppPPA.Models.Services.Application
 {
@@ -20,21 +21,32 @@ namespace WebAppPPA.Models.Services.Application
             this.dbContext = dbContext;
         }
 
-          public async Task<List<PersonaViewModel>> GetPersoneAsync(int page)
+          public async Task<ListViewModel<PersonaViewModel>> GetPersoneAsync(HomeInputModel input)
         {
-            page=Math.Max(1,page);
-            int limit=7;
-            int offset=(page -1)*limit;
+            //int persPerPage = Startup.Configuration.GetSection("Persone").GetValue<int>("PerPage");
+            int page=input.Page;
+            int limit=input.Limit;
+            int offset=input.Offset;
 
             IQueryable<PersonaViewModel> queryLinq = dbContext.Persone
-                .Skip(offset)
-                .Take(limit)
                 .AsNoTracking()
                 .Select(persona => PersonaViewModel.FromEntity(persona)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
 
-            List<PersonaViewModel> persone = await queryLinq.ToListAsync(); //La query al database viene inviata qui, quando manifestiamo l'intenzione di voler leggere i risultati
+            List<PersonaViewModel> persone = await queryLinq
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync(); //La query al database viene inviata qui, quando manifestiamo l'intenzione di voler leggere i risultati
 
-            return persone;
+            int totalCount= await queryLinq
+                .CountAsync();
+
+            ListViewModel<PersonaViewModel> result = new ListViewModel<PersonaViewModel>
+            {
+                Results = persone,
+                TotalCount = totalCount
+            };
+
+            return result;
         }
 
         public async Task<PersonaViewModel> GetPersonaAsync(int id)

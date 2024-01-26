@@ -19,16 +19,24 @@ namespace WebAppPPA.Controllers
         
         private static string ViewBagToastScript = "";
 
-        public async Task<IActionResult> Index(int page=1)
+        public async Task<IActionResult> Index(HomeInputModel input)
         {
             ViewData["Title"] = "Elenco delle persone";
-            List<PersonaViewModel> persone = await personaService.GetPersoneAsync(page);
+            ListViewModel<PersonaViewModel> persone = await personaService.GetPersoneAsync(input);
+            PersonaListViewModel viewModel = new PersonaListViewModel
+            {
+                Persone = persone,
+                Input = input
+            };
+
+
             if(ViewBagToastScript != "")
                 {
                     ViewBag.ToastScript =  $"mostraToastConferma('{ViewBagToastScript}');";
                     ViewBagToastScript="";
                 }
-            return View(persone);
+           
+            return View(viewModel);
         }
 
          [HttpGet]
