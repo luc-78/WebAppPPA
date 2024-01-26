@@ -25,7 +25,8 @@ namespace WebAppPPA.Controllers
             List<PersonaViewModel> persone = await personaService.GetPersoneAsync(page);
             if(ViewBagToastScript != "")
                 {
-                    ViewBag.ToastScript = "mostraToastConferma();";
+                    ViewBag.ToastScript =  $"mostraToastConferma('{ViewBagToastScript}');";
+                    ViewBagToastScript="";
                 }
             return View(persone);
         }

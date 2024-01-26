@@ -75,9 +75,14 @@
     </ul>
 </nav>
 
+
 @if (!string.IsNullOrEmpty(ViewBag.ToastScript))
-{
-    <script>
-        @Html.Raw(ViewBag.ToastScript)
-    </script>
-}
+    {
+        <script>
+            function mostraToastConferma(msg) {
+                toastr.success(msg, 'Conferma');
+            }
+
+            @Html.Raw(ViewBag.ToastScript)
+        </script>
+    }
