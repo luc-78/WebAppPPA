@@ -17,8 +17,15 @@ namespace WebAppPPA.Controllers
 
         public async Task<IActionResult> MostraGraf()
         {
-            ViewData["Title"] = "Grafico";
+            ViewData["Title"] = "Grafico preferenza numeri";
             GrafViewModel model= await grafService.GetNumeriVotatiAsync();
+            return View(model);
+        }
+
+        public async Task<IActionResult> MostraEtaGraf()
+        {
+            ViewData["Title"] = "Grafico età";
+            GrafEtaViewModel model= await grafService.GetEtaAsync();
             return View(model);
         }
     }
