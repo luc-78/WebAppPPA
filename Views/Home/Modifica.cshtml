@@ -41,7 +41,7 @@
         <input type="number" min="0" max="99" asp-for="Numero_preferito" required>
 
         <button class="btn btn-outline-primary" type="submit">Invia</button>
-        <button class="btn btn-danger btn-lg ml-3" type="button" data-toggle="modal" data-target="#delete-modal">🗑<i class="fas fa-trash-alt"></i></button>
+        <button class="btn btn-danger btn-lg ml-3" type="button" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-trash-alt"></i></button>
 
     </form>
     <form method="post" asp-action="Delete" asp-route-id="@Model.PersonaID">

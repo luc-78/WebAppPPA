@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using WebAppPPA.Models.InputModels;
 using WebAppPPA.Models.Services.Application;
 using WebAppPPA.Models.ViewModels;
@@ -17,7 +15,7 @@ namespace WebAppPPA.Controllers
             this.personaService = personaService;
         }
         
-        private static string ViewBagToastScript = "";
+        private static string ViewBagToastMsg = "";
 
         public async Task<IActionResult> Index(HomeInputModel input)
         {
@@ -30,10 +28,10 @@ namespace WebAppPPA.Controllers
             };
 
 
-            if(ViewBagToastScript != "")
+            if(ViewBagToastMsg != "")
                 {
-                    ViewBag.ToastScript =  $"mostraToastConferma('{ViewBagToastScript}');";
-                    ViewBagToastScript="";
+                    ViewBag.ToastScript =  $"mostraToastConferma('{ViewBagToastMsg}');";
+                    ViewBagToastMsg="";
                 }
            
             return View(viewModel);
@@ -56,7 +54,7 @@ namespace WebAppPPA.Controllers
                 
                 bool risultato = await personaService.ModificaPersonaAsync(inputModel); 
                 //ViewBag.ToastScript = "mostraToastConferma();";//TempData["ConfirmationMessage"] = "I dati sono stati salvati con successo";
-                ViewBagToastScript="modifiche effettuate";
+                ViewBagToastMsg="modifiche effettuate";
                 return RedirectToAction(nameof(Index));
               
             }
@@ -78,8 +76,7 @@ namespace WebAppPPA.Controllers
         public async Task<IActionResult> Create(PersonaCreateInputModel inputModel)
         {
             int personaID = await personaService.CreaPersonaAsync(inputModel);
-            //ViewBag.ToastScript = "mostraToastConferma();"
-            ViewBagToastScript="persona aggiunta";
+            ViewBagToastMsg="persona aggiunta";
             return RedirectToAction(nameof(Index));
         }
 
@@ -87,7 +84,7 @@ namespace WebAppPPA.Controllers
         public async Task<IActionResult> Delete(PersonaDeleteInputModel inputModel)
         {
             await personaService.DeletePersonaAsync(inputModel);
-            ViewBagToastScript="La persona è stata eliminata";
+            ViewBagToastMsg="La persona è stata eliminata";
             return RedirectToAction(nameof(Index));
         }
 
