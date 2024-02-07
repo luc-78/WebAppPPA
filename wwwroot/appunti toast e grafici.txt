@@ -1,0 +1,64 @@
+per avere i toast:
+
+- referenziare la view, nelll' tag haed, con jquery:
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+-fare lo stesso con toastr, aggiundendo la funzione desiderata:
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script>
+        function mostraToastConferma(string msg) {
+            toastr.success(msg, 'Conferma');
+        }
+</script>
+
+-srivere nell'action del controller la chiamata alla funzione:
+ViewBag.ToastScript =  $"mostraToastConferma('{ViewBagToastMsg}');";
+
+-chiamare la funzione anche dal corpo della pagina:
+@if (!string.IsNullOrEmpty(ViewBag.ToastScript))
+    {
+        <script>
+            function mostraToastConferma(msg) {
+                toastr.success(msg, 'Conferma');
+            }
+
+            @Html.Raw(ViewBag.ToastScript)
+        </script>
+    }
+	
+-------------------------------------------------------------------------------------
+per avere un grafico:
+
+- prima referenziare una libreria jscript (ad esempio chart.js):
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+- poi impostare l'oggetto:
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["1-18","18-30","30-60","60+"],
+    datasets: [{
+      label: '% di età',
+      data: [@string.Join(",", Model.Eta)],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    
+    legend: {
+      display: true, // Imposta su false se vuoi nascondere la legenda
+      position: 'top', // Puoi scegliere tra 'top', 'bottom', 'left', 'right'
+      labels: {
+        fontColor: 'black', // Colore del testo della legenda
+        fontSize: 12 // Dimensione del testo della legenda
+      }
+    }
+  }
+});
+
+</script>
+ 

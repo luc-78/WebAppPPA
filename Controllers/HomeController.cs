@@ -53,7 +53,7 @@ namespace WebAppPPA.Controllers
             {
                 
                 bool risultato = await personaService.ModificaPersonaAsync(inputModel); 
-                //ViewBag.ToastScript = "mostraToastConferma();";//TempData["ConfirmationMessage"] = "I dati sono stati salvati con successo";
+                //zViewBag.ToastScript = "mostraToastConferma();";//TempData["ConfirmationMessage"] = "I dati sono stati salvati con successo";
                 ViewBagToastMsg="modifiche effettuate";
                 return RedirectToAction(nameof(Index));
               
