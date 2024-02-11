@@ -1,0 +1,5 @@
+    <script>
+        // Impostare la data massima al valore corrente
+        var oggi = new Date().toISOString().split('T')[0];
+        document.getElementById('Data_di_nascita').setAttribute('max', oggi);
+    </script>

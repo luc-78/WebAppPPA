@@ -43,3 +43,9 @@
         <button class="btn btn-outline-primary" type="submit">Invia</button>
 
     </form>
+
+    <script>
+        // Impostare la data massima al valore corrente
+        var oggi = new Date().toISOString().split('T')[0];
+        document.getElementById('Data_di_nascita').setAttribute('max', oggi);
+    </script>
