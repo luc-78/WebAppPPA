@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using WebAppPPA.Models.Services.Application;
 using WebAppPPA.Models.Services.Infrastructure;
 
@@ -30,7 +31,7 @@ namespace WebAppPPA
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
                 services.AddTransient<IPersonaService, EfCorePersonaService>();
                 services.AddTransient<IGrafService, EfCoreGrafService>();
               
@@ -43,7 +44,7 @@ namespace WebAppPPA
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -60,12 +61,22 @@ namespace WebAppPPA
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            //EndpointRoutingMiddleware
+            app.UseRouting();
+
+            //EndpointMiddleware
+            app.UseEndpoints(routeBuilder => {
+                routeBuilder.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            /*
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            */
         }
     }
 }
