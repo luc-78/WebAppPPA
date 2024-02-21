@@ -31,7 +31,7 @@ namespace WebAppPPA
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                services.AddMvc();
                 services.AddTransient<IPersonaService, EfCorePersonaService>();
                 services.AddTransient<IGrafService, EfCoreGrafService>();
               
