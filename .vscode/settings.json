@@ -1,5 +1,3 @@
 {
-    "FSharp.suggestGitignore": false,
-    "appService.preDeployTask": "publish-release",
-    "appService.deploySubpath": "bin/Release/net6.0/publish"
+    "FSharp.suggestGitignore": false
 }
