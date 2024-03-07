@@ -24,7 +24,7 @@ namespace WebAppPPA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WebAppPPADbContext>(options =>
-               options.UseSqlite("Data Source=Dati\\personeDB.db"));
+               options.UseSqlite("Data Source=wwwroot\\personeDB.db"));
             
             services.Configure<CookiePolicyOptions>(options =>
             {
