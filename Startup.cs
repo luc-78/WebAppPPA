@@ -23,6 +23,9 @@ namespace WebAppPPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebAppPPADbContext>(options =>
+               options.UseSqlite("Data Source=Dati\\personeDB.db"));
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                
